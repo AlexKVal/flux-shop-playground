@@ -7,9 +7,9 @@ var Catalog = React.createClass({
     return {items: AppStore.getCatalog()};
   },
   render: function() {
-    var items = this.state.items.map(function (item) {
+    var items = this.state.items.map(function (item, i) {
       return (
-        <tr>
+        <tr key={i}>
           <td>{item.title}</td>
           <td>${item.cost}</td>
           <td><AddToCart item={item} /></td>
