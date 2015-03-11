@@ -65,11 +65,9 @@ var AppStore = assign(EventEmitter.prototype, {
     return _catalog;
   },
   getTotal: function () {
-    total = 0;
-    _cartItems.forEach(function (cartItem) {
-      total += cartItem.subtotal();
-    });
-    return total;
+    return _cartItems.reduce(function (prevVal, cartItem) {
+      return prevVal + cartItem.subtotal();
+    }, 0);
   },
 
   dispatcherIndex: AppDispatcher.register(function (payload) {
