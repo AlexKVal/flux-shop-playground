@@ -5,7 +5,10 @@ var Increase = require('./app-increase.js');
 var Decrease = require('./app-decrease.js');
 
 function cartItems() {
-  return {items: AppStore.getCart()};
+  return {
+    items: AppStore.getCart(),
+    total: AppStore.getTotal()
+  };
 }
 
 var Cart = React.createClass({
@@ -19,10 +22,7 @@ var Cart = React.createClass({
     this.setState(cartItems());
   },
   render: function() {
-    var total = 0;
     var items = this.state.items.map(function (item, i) {
-      var subtotal = item.cost * item.qty;
-      total += subtotal;
       return (
         <tr key={i}>
           <td><RemoveFromCart index={i} /></td>
@@ -32,7 +32,7 @@ var Cart = React.createClass({
             <Increase index={i} />
             <Decrease index={i} />
           </td>
-          <td>${subtotal}</td>
+          <td>${item.subtotal()}</td>
         </tr>
       );
     });
@@ -51,7 +51,7 @@ var Cart = React.createClass({
         <tfoot>
           <tr>
             <td colSpan="4" className="text-right">Total</td>
-            <td>${total}</td>
+            <td>${this.state.total}</td>
           </tr>
         </tfoot>
       </table>

@@ -34,6 +34,9 @@ function _addItem(item) {
   if (! item.inCart) {
     item.qty = 1;
     item.inCart = true;
+    item.subtotal = function subtotal() {
+      return this.qty * this.cost;
+    };
     _cartItems.push(item);
   } else {
     _cartItems.forEach(function (cartItem, i) {
@@ -61,6 +64,13 @@ var AppStore = assign(EventEmitter.prototype, {
   getCatalog: function () {
     return _catalog;
   },
+  getTotal: function () {
+    total = 0;
+    _cartItems.forEach(function (cartItem) {
+      total += cartItem.subtotal();
+    });
+    return total;
+  },
 
   dispatcherIndex: AppDispatcher.register(function (payload) {
     var action = payload.action; // this is our action from handleViewAction
@@ -80,8 +90,6 @@ var AppStore = assign(EventEmitter.prototype, {
     }
 
     AppStore.emitChange();
-
-    return true;
   })
 });
 
