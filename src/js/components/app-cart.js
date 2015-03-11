@@ -4,7 +4,7 @@ var RemoveFromCart = require('./app-removefromcart.js');
 var Increase = require('./app-increase.js');
 var Decrease = require('./app-decrease.js');
 
-function cartItems() {
+function stateFromStore() {
   return {
     items: AppStore.getCart(),
     total: AppStore.getTotal()
@@ -13,13 +13,13 @@ function cartItems() {
 
 var Cart = React.createClass({
   getInitialState: function() {
-    return cartItems();
+    return stateFromStore();
   },
   componentWillMount: function() {
     AppStore.addChangeListener(this._onChange);
   },
   _onChange: function() {
-    this.setState(cartItems());
+    this.setState(stateFromStore());
   },
   render: function() {
     var items = this.state.items.map(function (item, i) {
