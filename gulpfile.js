@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     del = require('del');
 
 gulp.task('browserify', function () {
-  return gulp.src('src/js/*.js')
+  return gulp.src('src/js/main.js')
   .pipe(browserify({transform: 'reactify'}))
   .pipe(concat('main.js'))
   .pipe(gulp.dest('dist/js'));
