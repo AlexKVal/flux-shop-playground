@@ -85,6 +85,8 @@ var AppStore = assign(EventEmitter.prototype, {
       case AppConstants.DECREASE_ITEM:
         _decreaseItem(action.index);
         break;
+      default:
+        return; //noop
     }
 
     AppStore.emitChange();
