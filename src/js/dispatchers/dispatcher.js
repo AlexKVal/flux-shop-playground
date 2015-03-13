@@ -1,6 +1,3 @@
-/* global -Promise */
-var Promise = require('es6-promise').Promise;
-// var assign = require('object-assign');
 var assign = require('react/lib/Object.assign');
 
 var _callbacks = [];
