@@ -6,8 +6,8 @@ var gulp = require('gulp'),
     del = require('del');
 
 gulp.task('browserify', function () {
-  return gulp.src('src/js/main.js')
-  .pipe(browserify({transform: 'reactify'}))
+  return gulp.src('src/js/main.jsx')
+  .pipe(browserify({extensions: '.jsx', transform: 'reactify'}))
   .pipe(concat('main.js'))
   .pipe(gulp.dest('dist/js'));
 });
