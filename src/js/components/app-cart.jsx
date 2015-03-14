@@ -47,7 +47,7 @@ var Cart = React.createClass({
             <th>Item</th>
             <th>Qty</th>
             <th></th>
-            <th>Subtotal</th>
+            <th>Subtotal +</th>
           </tr>
         </thead>
         <tbody>{items}</tbody>

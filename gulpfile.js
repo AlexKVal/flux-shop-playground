@@ -1,43 +1,26 @@
-var gulp = require('gulp'),
-    browserify = require('gulp-browserify'),
-    concat = require('gulp-concat'),
-    shell = require('gulp-shell'),
-    connect = require('gulp-connect'),
-    del = require('del');
+var gulp = require('gulp');
+var webpack = require('gulp-webpack');
+var named = require('vinyl-named');
 
-gulp.task('browserify', function () {
-  return gulp.src('src/js/main.jsx')
-  .pipe(browserify({extensions: '.jsx', transform: 'reactify'}))
-  .pipe(concat('main.js'))
-  .pipe(gulp.dest('dist/js'));
+var webpackConfig = {
+  module: {
+    loaders: [
+      { test: /\.jsx$/, loader: 'jsx-loader' } //,
+      // { test: /\.js$/, loader: 'envify-loader' }
+    ]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
+};
+
+gulp.task('default', function() {
+  return gulp.src([
+    'src/js/main.jsx',
+    'src/js/second.js',
+    'src/js/first.js'
+    ])
+    .pipe(named())
+    .pipe(webpack(webpackConfig))
+    .pipe(gulp.dest('dist/js'));
 });
-
-gulp.task('copy', function () {
-  return gulp.src('src/index.html')
-  .pipe(gulp.dest('dist'));
-});
-
-gulp.task('compile', ['browserify', 'copy']);
-
-gulp.task('connect', ['compile'], function() {
-  connect.server({ root: 'dist', livereload: true });
-});
-
-gulp.task('open_site', ['connect'], shell.task([
-  'open http://localhost:8080'
-]));
-
-gulp.task('reload', ['compile'], function () {
-  gulp.src('dist/*.html')
-  .pipe(connect.reload());
-});
-
-gulp.task('watch', function () {
-  gulp.watch('src/**/*.*', ['reload']);
-});
-
-gulp.task('clean', function(cb) {
-  del(['dist'], cb);
-});
-
-gulp.task('default', ['open_site', 'watch']);
