@@ -36,7 +36,7 @@ gulp.task('html', function(){
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('connect', function() {
+gulp.task('connect', ['build'], function() {
   connect.server({
     root: 'dist',
     livereload: true
@@ -49,4 +49,4 @@ gulp.task('open', ['connect'], function() {
 
 gulp.task('build', ['html', 'js']);
 
-gulp.task('default', ['build', 'open']);
+gulp.task('default', ['open']);
