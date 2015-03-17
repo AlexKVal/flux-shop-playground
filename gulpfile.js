@@ -32,8 +32,8 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('html', function(){
-  return gulp.src('src/*.html')
-  .pipe(gulp.dest('dist'));
+  return gulp.src('src/index.html')
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('connect', function() {
@@ -43,6 +43,10 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('open', ['server'], function() {
+gulp.task('open', ['connect'], function() {
   open('http://localhost:8080');
 });
+
+gulp.task('build', ['html', 'js']);
+
+gulp.task('default', ['build', 'open']);
