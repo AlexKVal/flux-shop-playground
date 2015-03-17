@@ -6,4 +6,4 @@ For simulation of multy entry points there were created two
 extra source files: `first.js` and `second.js`.
 
     $ npm install
-    $ ./node_modules/.bin/gulp
+    $ npm start
